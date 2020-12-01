@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import conexio.bddConnexio;
 
 /**
  * En aquesta secció cal accedir a una taula de MySQL amb un camp de cada tipus:
@@ -17,24 +18,26 @@ import java.sql.Statement;
  */
 public class JdbcMain {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        String MySQLURL = "jdbc:mysql://localhost/m03uf6Projecte";
-        String databseUserName = "root";
-        String databasePassword = "";
-        Connection con = null;
+        //bddConnexio con = new bddConnexio();
+        queryJDBC();
+        
+        
+    }
+    
+    public static void queryJDBC() {
+        bddConnexio bddConnexio = new bddConnexio();
+        Connection con = bddConnexio.connexio();
+
         try {
-            con = DriverManager.getConnection(MySQLURL, databseUserName, databasePassword);
             if (con != null) {
                 Statement stmt = con.createStatement();
                 String query = "SELECT * FROM `jocs`";
                 ResultSet rs = stmt.executeQuery(query);
 
                 while (rs.next()) {
-                    System.out.println(rs.getString("nom_joc") +"     "+ rs.getInt("id_joc")+"     "+ rs.getString("recomenat")+"     "+ rs.getDouble("nota_joc")
-                    +"     "+ rs.getBoolean("a_la_venta")+"     "+ rs.getDate("fecha_lanzamiento"));
+                    System.out.println(rs.getString("nom_joc") + "     " + rs.getInt("id_joc") + "     " + rs.getString("recomenat") + "     " + rs.getDouble("nota_joc")
+                            + "     " + rs.getBoolean("a_la_venta") + "     " + rs.getDate("fecha_lanzamiento"));
 
                 }
             }

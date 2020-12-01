@@ -1,5 +1,6 @@
 package cat.copernic.m03uf06review.orm;
 
+import conexio.bddConnexio;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -21,15 +22,16 @@ import java.util.List;
 public class OrmMain {
 
     public static void main(String[] args) {
-        String MySQLURL = "jdbc:mysql://localhost/m03uf6Projecte";
-        String databseUserName = "root";
-        String databasePassword = "";
-        Connection con = null;
+        queryORM();
         
+    }
+    
+    public static void queryORM() {
+        bddConnexio bddConnexio = new bddConnexio();
+        Connection con = bddConnexio.connexio();
         List<Registre> llistaRegistres = new ArrayList();
-        
+
         try {
-            con = DriverManager.getConnection(MySQLURL, databseUserName, databasePassword);
             if (con != null) {
                 Statement stmt = con.createStatement();
                 String query = "SELECT * FROM `jocs`";
@@ -46,6 +48,5 @@ public class OrmMain {
         for(Registre registre : llistaRegistres){
             System.out.printf("%s   %s   %s   %s   %tD   %s%n", registre.getId(), registre.getNom(), registre.getNota(), registre.getRecomenat(), registre.getReleaseDate(), registre.isVenta());
         }
-        
     }
 }

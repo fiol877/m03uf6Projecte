@@ -36,7 +36,7 @@ public class OrmMain {
                 ResultSet rs = stmt.executeQuery(query);
 
                 while (rs.next()) {
-                    llistaRegistres.add(new Registre(rs.getInt("id_joc"), rs.getString("nom_joc"), rs.getString("recomenat").charAt(0), rs.getDouble("nota_joc"), rs.getBoolean("a_la_venta"), rs.getDate("fecha_lanzamiento")));
+                    llistaRegistres.add(new Registre(rs.getInt("id_joc"), rs.getString("nom_joc"), rs.getString("recomenat"), rs.getDouble("nota_joc"), rs.getBoolean("a_la_venta"), rs.getDate("fecha_lanzamiento")));
                 }
             }
         } catch (Exception e) {
@@ -44,7 +44,7 @@ public class OrmMain {
         }
         
         for(Registre registre : llistaRegistres){
-            System.out.printf("%s   %s   %s   %s   %tD   %s%n", registre.id, registre.nom, registre.nota, registre.recomenat, registre.releaseDate, registre.venta);
+            System.out.printf("%s   %s   %s   %s   %tD   %s%n", registre.getId(), registre.getNom(), registre.getNota(), registre.getRecomenat(), registre.getReleaseDate(), registre.isVenta());
         }
         
     }

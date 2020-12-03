@@ -19,10 +19,7 @@ import conexio.bddConnexio;
 public class JdbcMain {
 
     public static void main(String[] args) {
-        //bddConnexio con = new bddConnexio();
         queryJDBC();
-        
-        
     }
     
     public static void queryJDBC() {

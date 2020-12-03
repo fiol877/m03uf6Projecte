@@ -4,6 +4,7 @@ import conexio.bddConnexio;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +22,17 @@ import java.util.List;
  */
 public class OrmMain {
 
+    static List<Registre> llistaRegistres = new ArrayList();
+
     public static void main(String[] args) {
         queryORM();
-        
+        imprimirLlista(llistaRegistres);
+
     }
-    
+
     public static void queryORM() {
         bddConnexio bddConnexio = new bddConnexio();
         Connection con = bddConnexio.connexio();
-        List<Registre> llistaRegistres = new ArrayList();
 
         try {
             if (con != null) {
@@ -38,14 +41,22 @@ public class OrmMain {
                 ResultSet rs = stmt.executeQuery(query);
 
                 while (rs.next()) {
-                    llistaRegistres.add(new Registre(rs.getInt("id_joc"), rs.getString("nom_joc"), rs.getString("recomenat"), rs.getDouble("nota_joc"), rs.getBoolean("a_la_venta"), rs.getDate("fecha_lanzamiento")));
+                    omplirLlista(new Registre(rs.getInt("id_joc"), rs.getString("nom_joc"), rs.getString("recomenat"), rs.getDouble("nota_joc"), rs.getBoolean("a_la_venta"), rs.getDate("fecha_lanzamiento")));
                 }
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
-        for(Registre registre : llistaRegistres){
+    }
+
+    public static List<Registre> omplirLlista(Registre joc) throws SQLException {
+        llistaRegistres.add(joc);
+        return llistaRegistres;
+    }
+
+    public static void imprimirLlista(List<Registre> llistaRegistres) {
+        for (Registre registre : llistaRegistres) {
             System.out.printf("%s   %s   %s   %s   %tD   %s%n", registre.getId(), registre.getNom(), registre.getNota(), registre.getRecomenat(), registre.getReleaseDate(), registre.isVenta());
         }
     }

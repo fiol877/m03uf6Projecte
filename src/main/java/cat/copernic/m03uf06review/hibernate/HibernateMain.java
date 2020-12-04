@@ -62,7 +62,7 @@ public class HibernateMain {
             }
             e.printStackTrace();
         } finally {
-            session.close();
+            factory.close();
         }
     }
 

@@ -9,65 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
  
-
-/**
- *
- * @author Bernat
- */
-
-/*@Entity
-@Table(name = "jocs")
-public class Registre {
-    @Id
-    @Column(name = "id_joc")
-    private int id;
- 
-    @Column(name = "nom_joc")
-    private String nom;
- 
-    @Column(nullable = true, name = "recomenat")
-    private String recomenat;
- 
-    @Column(nullable = true, name = "nota_joc")
-    private Double nota;
-    
-    @Column(nullable = true, name = "a_la_venta")
-    private Boolean venta;
-    
-    @Column(nullable = true, name = "recomenat")
-    private Date releaseDate;
-    
-    public Registre() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public String getRecomenat() {
-        return recomenat;
-    }
-
-    public Double getNota() {
-        return nota;
-    }
-
-    public Boolean getVenta() {
-        return venta;
-    }
-
-    public Date getReleaseDate() {
-        return releaseDate;
-    }
-    
-    */
-
-
-@javax.persistence.Table(name = "jocs")
 public class Registre {
     private Integer id;
     private String nom;

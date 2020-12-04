@@ -29,8 +29,9 @@ public class HibernateMain {
     private static SessionFactory factory;
 
     public static void main(String[] args) {
-        iniciarSessio();
+        //iniciarSessio();
         mostrarJocs();
+        crearJoc("Isaac", "s", 9.9, true, new java.sql.Date(2014-11-5));
     }
 
     public static void iniciarSessio() {
@@ -43,6 +44,7 @@ public class HibernateMain {
     }
 
     public static void mostrarJocs() {
+        iniciarSessio();
         Session session = factory.openSession();
         Transaction tx = null;
 
@@ -64,6 +66,28 @@ public class HibernateMain {
         } finally {
             factory.close();
         }
+    }
+
+    public static Integer crearJoc(String nom, String recomenat, Double nota, Boolean venta, Date releaseDate) {
+        iniciarSessio();
+        Session session = factory.openSession();
+        Transaction tx = null;
+        Integer employeeID = null;
+
+        try {
+            tx = session.beginTransaction();
+            Registre joc = new Registre(nom, recomenat, nota, venta, releaseDate);
+            employeeID = (Integer) session.save(joc);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            factory.close();
+        }
+        return employeeID;
     }
 
 }

@@ -33,6 +33,8 @@ public class HibernateMain {
         mostrarJocs();
         crearJoc("Isaac", "s", 9.9, true, new java.sql.Date(2014 - 11 - 5));
         updateNomJoc(2, "Yakuza 1");
+        eliminarJoc(10);
+        mostrarJocs();
     }
 
     public static void iniciarSessio() {
@@ -101,6 +103,26 @@ public class HibernateMain {
             Registre joc = (Registre) session.get(Registre.class, id);
             joc.setNom(nom);
             session.update(joc);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            factory.close();
+        }
+    }
+
+    public static void eliminarJoc(Integer id) {
+        iniciarSessio();
+        Session session = factory.openSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            Registre joc = (Registre) session.get(Registre.class, id);
+            session.delete(joc);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {

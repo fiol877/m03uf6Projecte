@@ -72,12 +72,12 @@ public class HibernateMain {
         iniciarSessio();
         Session session = factory.openSession();
         Transaction tx = null;
-        Integer employeeID = null;
+        Integer idJoc = null;
 
         try {
             tx = session.beginTransaction();
             Registre joc = new Registre(nom, recomenat, nota, venta, releaseDate);
-            employeeID = (Integer) session.save(joc);
+            idJoc = (Integer) session.save(joc);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
@@ -87,7 +87,7 @@ public class HibernateMain {
         } finally {
             factory.close();
         }
-        return employeeID;
+        return idJoc;
     }
 
 }

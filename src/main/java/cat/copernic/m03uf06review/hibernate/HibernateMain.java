@@ -31,10 +31,10 @@ public class HibernateMain {
     public static void main(String[] args) {
         //iniciarSessio();
         mostrarJocs();
-        crearJoc("Isaac", "s", 9.9, true, new java.sql.Date(2014 - 11 - 5));
+        /*crearJoc("Isaac", "s", 9.9, true, new java.sql.Date(2014 - 11 - 5));
         updateNomJoc(2, "Yakuza 1");
         eliminarJoc(10);
-        mostrarJocs();
+        mostrarJocs();*/
     }
 
     public static void iniciarSessio() {

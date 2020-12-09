@@ -1,0 +1,20 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name = "cat.copernic.m03uf06review.hibernate_relational.Registre2" table = "jocs">
+      
+      <id name = "id" type = "int" column = "id_joc">
+         <generator class="native"/>
+      </id>
+      
+      <property name = "nom" column = "nom_joc" type = "string"/>
+      <property name = "recomenat" column = "recomenat" type = "string"/>
+      <property name = "nota" column = "nota_joc" type = "double"/>
+      <property name = "venta" column = "a_la_venta" type = "boolean"/>
+      <property name = "releaseDate" column = "fecha_lanzamiento" type = "date"/>
+      
+   </class>
+</hibernate-mapping>

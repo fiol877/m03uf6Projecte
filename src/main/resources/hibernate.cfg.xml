@@ -10,5 +10,6 @@
     <property name="hibernate.connection.username">root</property>
     
     <mapping resource = "Registre.hbm.xml"/>
+    <mapping resource = "Registre2.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

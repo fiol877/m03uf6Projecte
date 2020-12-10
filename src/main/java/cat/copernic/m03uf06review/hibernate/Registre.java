@@ -18,7 +18,8 @@ public class Registre {
     private Date releaseDate;
 
     public Registre() {}
-    public Registre(String nom, String recomenat, Double nota, Boolean venta, Date releaseDate) {
+    public Registre(Integer id, String nom, String recomenat, Double nota, Boolean venta, Date releaseDate) {
+        this.id = id;
         this.nom = nom;
         this.recomenat = recomenat;
         this.nota = nota;

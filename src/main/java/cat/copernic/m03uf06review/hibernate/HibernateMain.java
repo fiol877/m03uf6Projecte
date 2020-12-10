@@ -29,9 +29,9 @@ public class HibernateMain {
     private static SessionFactory factory;
 
     public static void main(String[] args) {
-        //crearJoc("Skyrim", "s", 9.9, true, new java.sql.Date(2011 - 11 - 1));
+        crearJoc(null ,"Skyrim", "s", 9.9, true, new java.sql.Date(2011 - 11 - 1));
         //updateNomJoc(1, "pacman");
-        updateNomJoc(13, new Registre("Skyrim 2", "s", 9.9, true, new java.sql.Date(2011 - 11 - 1)));
+        //updateNomJoc(new Registre(15, "Skyrim 2", "s", 9.9, true, new java.sql.Date(2011 - 11 - 1)));
         //eliminarJoc(3);
         //mostrarJocs();
     }
@@ -70,7 +70,7 @@ public class HibernateMain {
         }
     }
 
-    public static Integer crearJoc(String nom, String recomenat, Double nota, Boolean venta, Date releaseDate) {
+    public static Integer crearJoc(Integer id, String nom, String recomenat, Double nota, Boolean venta, Date releaseDate) {
         iniciarSessio();
         Session session = factory.openSession();
         Transaction tx = null;
@@ -78,7 +78,7 @@ public class HibernateMain {
 
         try {
             tx = session.beginTransaction();
-            Registre joc = new Registre(nom, recomenat, nota, venta, releaseDate);
+            Registre joc = new Registre(id, nom, recomenat, nota, venta, releaseDate);
             idJoc = (Integer) session.save(joc);
             tx.commit();
         } catch (HibernateException e) {
@@ -92,15 +92,14 @@ public class HibernateMain {
         return idJoc;
     }
 
-    public static void updateNomJoc(Integer id, Registre nou) {
+    public static void updateNomJoc(Registre nou) {
         iniciarSessio();
         Session session = factory.openSession();
         Transaction tx = null;
 
         try {
             tx = session.beginTransaction();
-            Registre joc = (Registre) session.get(Registre.class, id);
-            joc.updateRegistre(nou);
+            session.update(nou);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {

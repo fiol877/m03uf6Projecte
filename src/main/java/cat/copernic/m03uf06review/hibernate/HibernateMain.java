@@ -29,12 +29,11 @@ public class HibernateMain {
     private static SessionFactory factory;
 
     public static void main(String[] args) {
-        //iniciarSessio();
-        mostrarJocs();
-        crearJoc("Isaac", "s", 9.9, true, new java.sql.Date(2014 - 11 - 5));
-        updateNomJoc(2, "Yakuza 1");
-        eliminarJoc(11);
-        mostrarJocs();
+        //crearJoc("Skyrim", "s", 9.9, true, new java.sql.Date(2011 - 11 - 1));
+        //updateNomJoc(1, "pacman");
+        updateNomJoc(13, new Registre("Skyrim 2", "s", 9.9, true, new java.sql.Date(2011 - 11 - 1)));
+        //eliminarJoc(3);
+        //mostrarJocs();
     }
 
     public static void iniciarSessio() {
@@ -52,7 +51,7 @@ public class HibernateMain {
         Transaction tx = null;
 
         try {
-            tx = session.beginTransaction();
+            //tx = session.beginTransaction();
             List<Registre> jocs = session.createQuery("FROM Registre").list();
             System.out.println("-----------------------------------------------------------------");
             for (Iterator iterator = jocs.iterator(); iterator.hasNext();) {
@@ -60,7 +59,7 @@ public class HibernateMain {
                 System.out.printf("%s   %s   %s   %s   %tD   %s%n", registre.getId(), registre.getNom(), registre.getNota(), registre.getRecomenat(), registre.getReleaseDate(), registre.isVenta());
             }
             System.out.println("-----------------------------------------------------------------");
-            tx.commit();
+            //tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
@@ -93,7 +92,7 @@ public class HibernateMain {
         return idJoc;
     }
 
-    public static void updateNomJoc(Integer id, String nom) {
+    public static void updateNomJoc(Integer id, Registre nou) {
         iniciarSessio();
         Session session = factory.openSession();
         Transaction tx = null;
@@ -101,8 +100,7 @@ public class HibernateMain {
         try {
             tx = session.beginTransaction();
             Registre joc = (Registre) session.get(Registre.class, id);
-            joc.setNom(nom);
-            session.update(joc);
+            joc.updateRegistre(nou);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {

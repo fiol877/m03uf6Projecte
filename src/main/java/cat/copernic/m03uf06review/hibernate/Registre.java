@@ -26,7 +26,13 @@ public class Registre {
         this.releaseDate = releaseDate;
     }
 
-    
+    public void updateRegistre(Registre nou) {
+        this.nom = nou.getNom();
+        this.recomenat = nou.getRecomenat();
+        this.nota = nou.getNota();
+        this.venta = nou.isVenta();
+        this.releaseDate = nou.getReleaseDate();
+    }
 
     public Integer getId() {
         return id;

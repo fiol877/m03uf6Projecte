@@ -29,11 +29,10 @@ public class HibernateMain {
     private static SessionFactory factory;
 
     public static void main(String[] args) {
-        crearJoc(null ,"Skyrim", "s", 9.9, true, new java.sql.Date(2011 - 11 - 1));
-        //updateNomJoc(1, "pacman");
+        //crearJoc(null ,"Skyrim", "s", 9.9, true, new java.sql.Date(2011 - 11 - 1));
         //updateNomJoc(new Registre(15, "Skyrim 2", "s", 9.9, true, new java.sql.Date(2011 - 11 - 1)));
         //eliminarJoc(3);
-        //mostrarJocs();
+        mostrarJocs();
     }
 
     public static void iniciarSessio() {

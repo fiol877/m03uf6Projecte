@@ -16,5 +16,21 @@
       <property name = "venta" column = "a_la_venta" type = "boolean"/>
       <property name = "releaseDate" column = "fecha_lanzamiento" type = "date"/>
       
+      <set name = "categoria" cascade="all">
+         <key column = "id_joc_assoc"/>
+         <one-to-many class="cat.copernic.m03uf06review.hibernate_relational.Categoria"/>
+      </set>
+      
    </class>
+   
+   <class name = "cat.copernic.m03uf06review.hibernate_relational.Categoria" table = "categoria">
+      
+      <id name = "id" type = "int" column = "id_categoria">
+         <generator class="native"/>
+      </id>
+      
+      <property name = "nom" column = "nom_categoria" type = "string"/>
+      
+   </class>
+   
 </hibernate-mapping>

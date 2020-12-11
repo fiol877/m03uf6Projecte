@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,6 +17,7 @@ public class Registre2 {
     private Double nota;
     private Boolean venta;
     private Date releaseDate;
+    private Set categoria;
 
     public Registre2() {}
     public Registre2(Integer id, String nom, String recomenat, Double nota, Boolean venta, Date releaseDate) {
@@ -53,6 +55,10 @@ public class Registre2 {
         return releaseDate;
     }
 
+    public Boolean getVenta() {
+        return venta;
+    }
+    
     public void setId(Integer id) {
         this.id = id;
     }
@@ -76,11 +82,19 @@ public class Registre2 {
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
     }
-    
-    
+
+    public Set getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Set categoria) {
+        this.categoria = categoria;
+    }
 
     @Override
     public String toString() {
-        return "Registre{" + "id=" + id + ", nom=" + nom + ", recomenat=" + recomenat + ", nota=" + nota + ", venta=" + venta + ", releaseDate=" + releaseDate + '}';
+        return "Registre2{" + "id=" + id + ", nom=" + nom + ", recomenat=" + recomenat + ", nota=" + nota + ", venta=" + venta + ", releaseDate=" + releaseDate + ", categoria=" + categoria + '}';
     }
+    
+    
 }

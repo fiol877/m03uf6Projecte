@@ -28,6 +28,14 @@ public class Registre2 {
         this.venta = venta;
         this.releaseDate = releaseDate;
     }
+    
+    public Registre2(String nom, String recomenat, Double nota, Boolean venta, Date releaseDate) {
+        this.nom = nom;
+        this.recomenat = recomenat;
+        this.nota = nota;
+        this.venta = venta;
+        this.releaseDate = releaseDate;
+    }
 
     
 

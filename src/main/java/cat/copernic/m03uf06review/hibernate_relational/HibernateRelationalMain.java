@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 /**
  * En aquesta secció cal accedir a dues taules de MySQL que formin una relació
@@ -31,15 +32,20 @@ public class HibernateRelationalMain {
     private static SessionFactory factory;
 
     public static void main(String[] args) {
+        HashSet set1 = new HashSet();
+        set1.add(new Categoria("Minecraft"));
+        set1.add(new Categoria("Rol"));
+
         HashSet set2 = new HashSet();
-        set2.add(new Categoria("Accio"));
+        set2.add(new Categoria("Aventura"));
         set2.add(new Categoria("Rol"));
-        //crearJoc(null, "Pog", "s", 7.7, true,null, set2);
-        //crearJoc(null ,"Skyrim", "s", 9.9, true, new java.sql.Date(2011 - 11 - 1), set2);
-        //updateJoc(new Registre2(19, "Skyrim", "s", 9.9, true, null), set2);
-        eliminarJoc(19);
-        
-        mostrarJocs();
+
+        //crearJoc("Pog", "s", 7.7, true, null, set2);
+        //crearJoc("SkyrimASDF", "s", 9.9, true, null, set2);
+        //updateJoc(new Registre2(22, "Skyrim", "s", 5.0, true, java.sql.Date.valueOf("2011-11-11")), set2);
+        //eliminarJoc(22);
+
+        //mostrarJocs();
     }
 
     public static void iniciarSessio() {
@@ -81,7 +87,7 @@ public class HibernateRelationalMain {
         }
     }
 
-    public static Integer crearJoc(Integer id, String nom, String recomenat, Double nota, Boolean venta, Date releaseDate, Set categorias) {
+    public static Integer crearJoc(String nom, String recomenat, Double nota, Boolean venta, Date releaseDate, Set categorias) {
         iniciarSessio();
         Session session = factory.openSession();
         Transaction tx = null;
@@ -89,7 +95,7 @@ public class HibernateRelationalMain {
 
         try {
             tx = session.beginTransaction();
-            Registre2 joc = new Registre2(id, nom, recomenat, nota, venta, releaseDate);
+            Registre2 joc = new Registre2(nom, recomenat, nota, venta, releaseDate);
             joc.setCategoria(categorias);
             idJoc = (Integer) session.save(joc);
             tx.commit();
@@ -114,6 +120,7 @@ public class HibernateRelationalMain {
             joc.setCategoria(categorias);
             session.update(joc);
             tx.commit();
+
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
@@ -122,8 +129,10 @@ public class HibernateRelationalMain {
         } finally {
             factory.close();
         }
+
+        eliminarCategoriasNull();
     }
-    
+
     public static void eliminarJoc(Integer id) {
         iniciarSessio();
         Session session = factory.openSession();
@@ -133,6 +142,32 @@ public class HibernateRelationalMain {
             tx = session.beginTransaction();
             Registre2 joc = (Registre2) session.get(Registre2.class, id);
             session.delete(joc);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            factory.close();
+        }
+    }
+
+    public static void eliminarCategoriasNull() {
+        iniciarSessio();
+        Session session = factory.openSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+
+            String hql = "FROM Categoria c WHERE c.idJoc = null";
+            Query query = session.createQuery(hql);
+            List<Categoria> results = query.list();
+            for (Categoria c : results) {
+                Categoria categoria = (Categoria) session.get(Categoria.class, c.getId());
+                session.delete(categoria);
+            }
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {

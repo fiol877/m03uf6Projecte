@@ -8,6 +8,7 @@ import java.util.Objects;
 public class Categoria {
     private int id;
     private String nom;
+    private Integer idJoc;
 
     public Categoria() {
     }
@@ -31,6 +32,15 @@ public class Categoria {
     public void setNom(String nom) {
         this.nom = nom;
     }
+
+    public Integer getIdJoc() {
+        return idJoc;
+    }
+
+    public void setIdJoc(Integer idJoc) {
+        this.idJoc = idJoc;
+    }
+    
 
     @Override
     public int hashCode() {

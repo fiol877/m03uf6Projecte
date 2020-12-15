@@ -30,6 +30,7 @@
       </id>
       
       <property name = "nom" column = "nom_categoria" type = "string"/>
+      <property name = "idJoc" column = "id_joc_assoc" type = "int"/>
       
    </class>
    

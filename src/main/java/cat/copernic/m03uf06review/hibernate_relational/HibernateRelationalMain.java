@@ -41,9 +41,9 @@ public class HibernateRelationalMain {
         set2.add(new Categoria("Rol"));
 
         //crearJoc("Pog", "s", 7.7, true, null, set2);
-        //crearJoc("SkyrimASDF", "s", 9.9, true, null, set2);
-        //updateJoc(new Registre2(22, "Skyrim", "s", 5.0, true, java.sql.Date.valueOf("2011-11-11")), set2);
-        //eliminarJoc(22);
+        //crearJoc(new Registre2("SkyrimASDF", "s", 9.9, true, null), set2);
+        //updateJoc(new Registre2(25, "Skyrim", "s", 5.0, true, java.sql.Date.valueOf("2011-11-11")), set2);
+        eliminarJoc(25);
 
         //mostrarJocs();
     }
@@ -87,7 +87,7 @@ public class HibernateRelationalMain {
         }
     }
 
-    public static Integer crearJoc(String nom, String recomenat, Double nota, Boolean venta, Date releaseDate, Set categorias) {
+    public static Integer crearJoc(Registre2 joc, Set categorias) {
         iniciarSessio();
         Session session = factory.openSession();
         Transaction tx = null;
@@ -95,7 +95,6 @@ public class HibernateRelationalMain {
 
         try {
             tx = session.beginTransaction();
-            Registre2 joc = new Registre2(nom, recomenat, nota, venta, releaseDate);
             joc.setCategoria(categorias);
             idJoc = (Integer) session.save(joc);
             tx.commit();
